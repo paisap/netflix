@@ -13,6 +13,7 @@ class UsuarioResponse(BaseModel):
     usuario: str
     correo: EmailStr
     dueno: bool
+    cliente: bool
 
     class Config:
         orm_mode = True

@@ -7,6 +7,12 @@ class CuentaBase(BaseModel):
     correo: EmailStr
     dueno: Optional[str] = None
 
+# ✅ Base sin ID (para crear o actualizar)
+class CuentaUsuarioBase(BaseModel):
+    id: int
+    cuenta_id: int
+    usuario_id: int
+
 
 # ✅ Crear cuenta – incluye lista de usuarios
 class CuentaCreate(CuentaBase):
@@ -26,3 +32,11 @@ class CuentaResponse(CuentaBase):
 
     class Config:
         orm_mode = True
+
+
+# ✅ Leer cuenta con ID y usuarios opcional
+class CuentaUsuarioResponse(CuentaUsuarioBase):
+    id: int
+    cuenta_id: int
+    usuario_id: int
+
