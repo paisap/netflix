@@ -9,6 +9,8 @@ class Usuario(Base):
     usuario = Column(String, unique=True, index=True)
     correo = Column(String, unique=True, index=True)
     contrasena = Column(String)
+    celular = Column(String, unique=True, index=True, nullable=True)
+    id_telegram = Column(String, unique=True, index=True, nullable=True)
     administrator = Column(Boolean, default=False)
     dueno = Column(Boolean, default=False)
     cliente = Column(Boolean, default=False)
