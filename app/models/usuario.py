@@ -7,7 +7,6 @@ class Usuario(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     usuario = Column(String, unique=True, index=True)
-    correo = Column(String, unique=True, index=True)
     contrasena = Column(String)
     celular = Column(String, unique=True, index=True, nullable=True)
     id_telegram = Column(String, unique=True, index=True, nullable=True)
@@ -16,3 +15,13 @@ class Usuario(Base):
     cliente = Column(Boolean, default=False)
 
     cuentas = relationship("CuentaUsuario", back_populates="usuario")
+
+
+
+class AdminUsuario(Base):
+    __tablename__ = "AdminUsuario"
+
+    id = Column(Integer, primary_key=True, index=True)
+    dueno = Column(Integer, index=True)
+    cliente = Column(Integer,  index=True)
+    

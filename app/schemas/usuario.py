@@ -3,17 +3,16 @@ from typing import Optional
 
 class UsuarioCreate(BaseModel):
     usuario: str
-    correo: EmailStr
     contrasena: str
     administrator: bool = False
     dueno: bool = False
     cliente: bool = False
     id_telegram: str
     celular: str
+    creador: int
 
 class UsuarioUpdate(BaseModel):
     usuario: Optional[str] = None
-    correo: Optional[EmailStr] = None
     contrasena: Optional[str] = None
     celular: Optional[str] = None
     id_telegram: Optional[str] = None
@@ -25,7 +24,6 @@ class UsuarioUpdate(BaseModel):
 class UsuarioResponse(BaseModel):
     id: int
     usuario: str
-    correo: EmailStr
     dueno: bool
     cliente: bool
     administrator: bool

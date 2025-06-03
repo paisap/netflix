@@ -4,7 +4,7 @@ from typing import List
 
 from ..database import get_db
 from app.database import SessionLocal, engine
-from app.models.usuario import Base, Usuario
+from app.models.usuario import Base, Usuario, AdminUsuario
 from app.schemas.usuario import UsuarioCreate, UsuarioResponse, UsuarioUpdate
 from app.models.cuenta import Base, Cuenta, CuentaUsuario
 from app.schemas.cuenta import CuentaBase, CuentaCreate, CuentaResponse
@@ -13,10 +13,20 @@ router = APIRouter(prefix="/usuarios", tags=["Usuarios"])
 
 @router.post("/", response_model=UsuarioResponse)
 def crear_usuario(usuario: UsuarioCreate, db: Session = Depends(get_db)):
-    db_usuario = Usuario(**usuario.dict())
+    dueno = usuario.creador
+    usuario_data = usuario.dict()
+    usuario_data.pop("creador")  # Eliminar campo que no pertenece al modelo Usuario
+    db_usuario = Usuario(**usuario_data)
     db.add(db_usuario)
+    db.flush()
+    admin_usuario = AdminUsuario(
+        dueno=dueno,
+        cliente=db_usuario.id  # 👈 cliente es string según tu modelo
+    )
+    db.add(admin_usuario)
     db.commit()
     db.refresh(db_usuario)
+    db.refresh(admin_usuario)
     return db_usuario
 
 @router.get("/", response_model=List[UsuarioResponse])
