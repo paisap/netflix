@@ -14,9 +14,6 @@ class Usuario(Base):
     dueno = Column(Boolean, default=False)
     cliente = Column(Boolean, default=False)
 
-    cuentas = relationship("CuentaUsuario", back_populates="usuario")
-
-
 
 class AdminUsuario(Base):
     __tablename__ = "AdminUsuario"

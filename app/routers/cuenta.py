@@ -7,11 +7,11 @@ from app.database import SessionLocal, engine
 from app.models.usuario import Base, Usuario
 from app.schemas.usuario import UsuarioCreate, UsuarioResponse
 from app.models.cuenta import Base, Cuenta, CuentaUsuario, CuentaDueno
-from app.schemas.cuenta import CuentaBase, CuentaCreate, CuentaResponse, CuentaUsuarioResponse
+from app.schemas.cuenta import CuentaCreate
 
 router = APIRouter(prefix="/cuentas", tags=["Cuentas"])
 
-@router.post("/cuenta/", response_model=CuentaResponse)
+@router.post("/cuenta/")
 def crear_cuenta(cuenta: CuentaCreate, db: Session = Depends(get_db)):
     # Verificar que no exista el correo
     db_cuenta = db.query(Cuenta).filter(Cuenta.correo == cuenta.correo).first()
@@ -33,13 +33,13 @@ def crear_cuenta(cuenta: CuentaCreate, db: Session = Depends(get_db)):
     # Refrescar el objeto para retornar la versión actualizada con ID
     db.refresh(nueva_cuenta)
 
-    return nueva_cuenta
+    return {"status": "ok"}
 
 
-@router.get("/", response_model=List[CuentaResponse])
+@router.get("/")
 def mostrar_usuario(db: Session = Depends(get_db)):
     db_usuario = db.query(Cuenta).all()
-    return db_usuario
+    return {"status": "ok"}
 
 # @router.get("/usuario", response_model=List[CuentaUsuarioResponse])
 # def mostrar_usuario(db: Session = Depends(get_db)):

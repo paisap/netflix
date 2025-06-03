@@ -9,26 +9,22 @@ class Cuenta(Base):
     id = Column(Integer, primary_key=True, index=True)
     correo = Column(String, unique=True, index=True)
 
-    usuarios = relationship("CuentaUsuario", back_populates="cuenta")
 
 
 class CuentaUsuario(Base):
     __tablename__ = "cuenta_usuarios"
 
-    id = Column(Integer, primary_key=True, index=True)
-    cuenta_id = Column(Integer, ForeignKey("cuentas.id"), primary_key=True)
-    usuario_id = Column(Integer, ForeignKey("usuarios.id"), primary_key=True)
-    fecha_asignacion = Column(DateTime, default=datetime.utcnow)
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    cuenta_id = Column(Integer)
+    usuario_id = Column(Integer)
+    #fecha_asignacion = Column(DateTime, default=datetime.utcnow)
 
-    cuenta = relationship("Cuenta", back_populates="usuarios")
-    usuario = relationship("Usuario", back_populates="cuentas")
-    
 
 class CuentaDueno(Base):
     __tablename__ = "cuenta_dueno"
 
-    id = Column(Integer, primary_key=True, index=True)
-    cuenta_id = Column(Integer, ForeignKey("cuentas.id"), primary_key=True)
-    usuario_id = Column(Integer, ForeignKey("usuarios.id"), primary_key=True)
-    fecha_asignacion = Column(DateTime, default=datetime.utcnow)
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    cuenta_id = Column(Integer)
+    usuario_id = Column(Integer)
+    #fecha_asignacion = Column(DateTime, default=datetime.utcnow)
 

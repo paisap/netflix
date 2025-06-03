@@ -7,7 +7,7 @@ from app.database import SessionLocal, engine
 from app.models.usuario import Base, Usuario, AdminUsuario
 from app.schemas.usuario import UsuarioCreate, UsuarioResponse, UsuarioUpdate
 from app.models.cuenta import Base, Cuenta, CuentaUsuario
-from app.schemas.cuenta import CuentaBase, CuentaCreate, CuentaResponse
+from app.schemas.cuenta import CuentaCreate
 
 router = APIRouter(prefix="/usuarios", tags=["Usuarios"])
 
